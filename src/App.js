@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {BrowserRouter,Routes,Route} from 'react-router-dom'
+import Login from "./components/frontend/auth/Login";
+import Register from "./components/frontend/auth/Register";
+import Home from "./components/frontend/Home";
+import MasterLayout from "./layouts/admin/MasterLayout";
+import axios from 'axios'
 
+axios.defaults.baseURL = "http://localhost:8000/";
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.headers.post['accept'] = 'application/json';
+axios.defaults.withCredentials = true;
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home/>}/>
+          <Route path="/login" element={<Login/>}/>
+          <Route path="/register" element={<Register/>}/>
+          <Route path="/admin/*" element={<MasterLayout/>}/>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
